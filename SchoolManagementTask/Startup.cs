@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SchoolManagementTask.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SchoolManagementTask.Models;
 
 namespace SchoolManagementTask
 {
@@ -39,6 +40,10 @@ namespace SchoolManagementTask
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<dbLectureORM19AugContext>(options =>
+                options.UseSqlServer(
+            Configuration.GetConnectionString("MyCS")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
