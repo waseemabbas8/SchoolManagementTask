@@ -1,10 +1,22 @@
 ﻿@model SchoolManagementTask.Models.Student
 
+<h2>Register New Student</h2>
+
 @{
     ViewData["Title"] = "AddStudent";
-}
+    if (ViewBag.Message != null)
+    {
+        if (ViewBag.Message == "Registration Done Succefully!")
+        {
+            <h2 class="alert alert-success"><span class="glyphicon glyphicon-ok-circle"></span> @ViewBag.Message</h2>
+        }
+        else
+        {
+            <h2 class="alert alert-success"><span class="glyphicon glyphicon-remove-circle"></span> @ViewBag.Message</h2>
+        }
+    }
 
-<h2>Register New Student</h2>
+}
 
 <hr />
 <div class="row">
