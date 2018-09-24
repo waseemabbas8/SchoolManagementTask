@@ -47,5 +47,11 @@ namespace SchoolManagementTask.Controllers
         {
             return View(ORM.Student.Where(m=>m.Id.Equals(Id)).FirstOrDefault());
         }
+
+        public IActionResult EditStudent(int id)
+        {
+            Student student = ORM.Student.Where(m => m.Id.Equals(id)).FirstOrDefault();
+            return View(student);
+        }
     }
 }
