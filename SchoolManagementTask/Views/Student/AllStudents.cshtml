@@ -4,7 +4,17 @@
 }
 @model IEnumerable<Student>
 
-<h2>AllStudents</h2>
+
+<div class="row">
+    <div class="col-md-10">
+        <h2>AllStudents</h2>
+    </div>
+    <div class="col-md-2" align="right">
+        <br />
+        <a asp-action="AddStudent" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> New Student</a>
+    </div>
+</div>
+
 
 <table class="table table-striped table-bordered">
     <thead>

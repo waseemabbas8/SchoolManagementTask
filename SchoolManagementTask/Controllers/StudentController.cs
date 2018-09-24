@@ -70,5 +70,12 @@ namespace SchoolManagementTask.Controllers
             }
             return View(student);
         }
+
+        public IActionResult DeleteStudent(Student student)
+        {
+            ORM.Student.Remove(student);
+            ORM.SaveChanges();
+            return RedirectToAction("AllStudents");
+        }
     }
 }
