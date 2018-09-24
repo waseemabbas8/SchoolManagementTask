@@ -36,5 +36,16 @@ namespace SchoolManagementTask.Controllers
             }
             return View();
         }
+
+        public IActionResult AllStudents()
+        {
+            IList<Student> students = ORM.Student.ToList<Student>();
+            return View(students);
+        }
+
+        public IActionResult StudentDetail(int Id)
+        {
+            return View(ORM.Student.Where(m=>m.Id.Equals(Id)).FirstOrDefault());
+        }
     }
 }

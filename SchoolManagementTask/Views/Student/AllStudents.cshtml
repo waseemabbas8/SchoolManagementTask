@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "AllStudents";
+}
+@model IEnumerable<Student>
+
+<h2>AllStudents</h2>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Roll No</td>
+            <td>Name</td>
+            <td>CNIC</td>
+            <td>Department</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Student student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.RollNo</td>
+                <td>@student.Name</td>
+                <td>@student.Cnic</td>
+                <td>@student.Class</td>
+                <td>@student.Email</td>
+                <td>
+                    <a href="/Student/StudentDetail?Id=@student.Id" class="btn btn-success">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
