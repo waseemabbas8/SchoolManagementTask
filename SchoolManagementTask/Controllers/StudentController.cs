@@ -58,8 +58,16 @@ namespace SchoolManagementTask.Controllers
         [HttpPost]
         public IActionResult EditStudent(Student student)
         {
-            ORM.Student.Update(student);
-            ORM.SaveChanges();
+            try
+            {
+                ORM.Student.Update(student);
+                ORM.SaveChanges();
+                ViewBag.MessageSucess = "Record Updated Succefully";
+            }
+            catch
+            {
+                ViewBag.MessageFailure = "Error! Could not Update Record";
+            }
             return View(student);
         }
     }
