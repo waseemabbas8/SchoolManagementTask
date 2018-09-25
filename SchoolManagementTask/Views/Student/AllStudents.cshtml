@@ -16,7 +16,7 @@
 </div>
 
 
-<table class="table table-striped table-bordered">
+<table id="studentTable" name="studentTable" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>ID</th>
@@ -45,3 +45,11 @@
         }
     </tbody>
 </table>
+
+@section Scripts{ 
+    <script>
+        $().ready(function () {
+            $('#studentTable').DataTable();
+        });
+    </script>
+}
