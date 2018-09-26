@@ -43,6 +43,13 @@ namespace SchoolManagementTask.Controllers
             return View(students);
         }
 
+        [HttpPost]
+        public IActionResult AllStudents(int RollNo, string Name, string Department)
+        {
+            IList<Student> students = ORM.Student.Where(m=>m.RollNo.Equals(RollNo) || m.Name.Contains(Name) || m.Class.Contains(Department)).ToList<Student>();
+            return View(students);
+        }
+
         public IActionResult StudentDetail(int Id)
         {
             return View(ORM.Student.Where(m=>m.Id.Equals(Id)).FirstOrDefault());
