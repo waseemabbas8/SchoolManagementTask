@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SchoolManagementTask.Helpers;
 using SchoolManagementTask.Models;
+using SchoolManagementTask.Resources;
 
 namespace SchoolManagementTask.Controllers
 {
@@ -29,6 +32,18 @@ namespace SchoolManagementTask.Controllers
                 ORM.SaveChanges();
                 ViewBag.Message = "Registration Done Succefully!";
                 ModelState.Clear();
+
+                //Email object
+                MailMessage oEmail = new MailMessage();
+                oEmail.From = new MailAddress(EmailIfo.SMTP_USER_NAME);
+                oEmail.To.Add(new MailAddress(student.Email));
+                oEmail.CC.Add(new MailAddress("username@example.com"));
+                oEmail.Subject = "Welcome to ABC";
+                oEmail.Body = "Dear " + student.Name + ",<br><br>" +
+                    "Thanks for registering with ABC, We are glad to have you in our system." +
+                    "<br><br>" +
+                    "<b>Regards</b>,<br>ABC Team";
+                ViewBag.EmailResponse = NotificationHandler.SendEmail(oEmail);
             }
             catch
             {
@@ -82,7 +97,7 @@ namespace SchoolManagementTask.Controllers
         {
             ORM.Student.Remove(student);
             ORM.SaveChanges();
-            return RedirectToAction("AllStudents");
+            return RedirectToAction(nameof(StudentController.AllStudents));
         }
     }
 }
