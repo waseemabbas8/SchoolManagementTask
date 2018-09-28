@@ -29,13 +29,11 @@
                 <input type="text" class="form-control" id="name" name="Name"/>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="department">Department</label>
-                <input type="text" class="form-control" id="department" name="Department"/>
+                <input type="text" class="form-control" id="department" name="Department" />
             </div>
-        </div>
-        <div class="col-md-2">
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span> Search
@@ -71,6 +69,7 @@
                 <td>@student.Email</td>
                 <td>
                     <a href="/Student/StudentDetail?Id=@student.Id" class="btn btn-success">Details</a>
+                    <a href="#" data-studentid="@student.Id" class="btn btn-danger DeleteStudent" ><span class="glyphicon glyphicon-floppy-remove"></span> Delete</a>
                 </td>
             </tr>
         }
@@ -82,5 +81,33 @@
         $().ready(function () {
             $('#studentTable').DataTable();
         });
+
+        $(function () {
+            $('.DeleteStudent').click(function () {
+                var ClickedButton = $(this);
+                var StudentId = ClickedButton.data('studentid');
+                ClickedButton.text('Please Wait');
+                $.ajax({
+                    url: "/Student/DeleteStudentByAjax",
+                    type: "POST",
+                    data: {
+                        Id: StudentId
+                    },
+                    complete: function (result) {
+                        if (result.responseText === "Yes") {
+                            alert("Student with ID " + StudentId + " was deleted succefully");
+                            ClickedButton.parent().parent().fadeOut(2000);
+
+                        } else {
+                            alert("Error! could not delte student");
+                            ClickedButton.children().addClass('glyphicon glyphicon-floppy-remove');
+                            ClickedButton.text('Delete');
+                        }
+                    }
+
+                });
+            });
+        });
+
     </script>
 }

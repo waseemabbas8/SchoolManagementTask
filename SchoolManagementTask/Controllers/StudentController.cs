@@ -99,5 +99,21 @@ namespace SchoolManagementTask.Controllers
             ORM.SaveChanges();
             return RedirectToAction(nameof(StudentController.AllStudents));
         }
+
+        public string DeleteStudentByAjax(Student s)
+        {
+            string result;
+            try
+            {
+                ORM.Student.Remove(s);
+                ORM.SaveChanges();
+                result = "Yes";
+            }
+            catch
+            {
+                result = "No";
+            }
+            return result;
+        }
     }
 }
