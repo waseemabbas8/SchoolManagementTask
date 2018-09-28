@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SchoolManagementTask.Models
 {
@@ -11,5 +12,7 @@ namespace SchoolManagementTask.Models
         public string Cnic { get; set; }
         public string Subject { get; set; }
         public string Mobile { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? JoiningDate { get; set; }
     }
 }

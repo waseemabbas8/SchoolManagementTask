@@ -18,7 +18,7 @@ namespace SchoolManagementTask.Controllers
         public IActionResult Index()
         {
             ViewBag.StudentsCount = ORM.Student.ToList<Student>().Count();
-            //ViewBag.TeachersCount = ORM.Teacher.ToList<Student>().Count();
+            ViewBag.TeachersCount = ORM.Teacher.ToList<Teacher>().Count();
             return View();
         }
 

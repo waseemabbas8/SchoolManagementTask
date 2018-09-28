@@ -82,6 +82,10 @@ namespace SchoolManagementTask.Models
                 entity.Property(e => e.Subject)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.JoiningDate)
+                    .HasColumnName("JoiningDate")
+                    .HasColumnType("date");
             });
         }
     }
