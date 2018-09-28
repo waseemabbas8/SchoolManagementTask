@@ -10,9 +10,15 @@ namespace SchoolManagementTask.Controllers
 {
     public class HomeController : Controller
     {
-        
+        dbLectureORM19AugContext ORM;
+        public HomeController(dbLectureORM19AugContext ORM)
+        {
+            this.ORM = ORM;
+        }
         public IActionResult Index()
         {
+            ViewBag.StudentsCount = ORM.Student.ToList<Student>().Count();
+            //ViewBag.TeachersCount = ORM.Teacher.ToList<Student>().Count();
             return View();
         }
 
