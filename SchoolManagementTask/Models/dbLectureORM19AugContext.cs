@@ -62,6 +62,10 @@ namespace SchoolManagementTask.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
                 entity.Property(e => e.RollNo);
+
+                entity.Property(e => e.Picture)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Teacher>(entity =>

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagementTask.Helpers;
 using SchoolManagementTask.Models;
@@ -13,9 +16,11 @@ namespace SchoolManagementTask.Controllers
     public class StudentController : Controller
     {
         private dbLectureORM19AugContext ORM;
-        public StudentController(dbLectureORM19AugContext ORM)
+        private IHostingEnvironment ENV;
+        public StudentController(dbLectureORM19AugContext ORM, IHostingEnvironment ENV)
         {
             this.ORM = ORM;
+            this.ENV = ENV;
         }
 
         public IActionResult AddStudent()
@@ -24,8 +29,14 @@ namespace SchoolManagementTask.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddStudent(Student student)
+        public IActionResult AddStudent(Student student, IFormFile Picture)
         {
+            //Profile Picture upload flow
+            string PicturePath = "/WebData/Images/ProfilePictures/" + Guid.NewGuid().ToString() + Path.GetExtension(Picture.FileName);
+            FileStream FS = new FileStream(ENV.WebRootPath + PicturePath, FileMode.Create);
+            Picture.CopyTo(FS);
+            FS.Close();
+            student.Picture = PicturePath;
             try
             {
                 ORM.Add(student);
@@ -45,7 +56,7 @@ namespace SchoolManagementTask.Controllers
                     "<b>Regards</b>,<br>ABC Team";
                 ViewBag.EmailResponse = NotificationHandler.SendEmail(oEmail);
             }
-            catch
+            catch(Exception ex)
             {
                 ViewBag.Message = "Error! Could not Save";
             }
