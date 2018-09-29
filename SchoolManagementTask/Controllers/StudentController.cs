@@ -88,6 +88,46 @@ namespace SchoolManagementTask.Controllers
             return View(student);
         }
 
+        public string GetStudentsNames()
+        {
+            string Result = "";
+
+
+            var r = Request;
+
+
+
+            IList<Student> All =  ORM.Student.ToList<Student>();
+            Result += "<h1 class='alert alert-success'>Total Students: "+All.Count+"</h1>";
+
+            foreach(Student S in All)
+            {
+                Result += "<a href='/Student/StudentDetail?Id="+S.Id+"'><p><span class='glyphicon glyphicon-user'></span> " + S.Name+"</p></a> <a href='/student/deletestudent1?id="+S.Id+"'>Delete</a>";
+            }
+
+
+
+
+            return Result;
+        }
+
+
+
+
+
+
+        public string ShowAd()
+        {
+            string Ad = "";
+
+            Ad = "<img class='img img-responsive' src='http://lorempixel.com/400/400/sports/Theta-Solutions/'/>";
+
+
+            return Ad;
+        }
+
+
+
         [HttpPost]
         public IActionResult EditStudent(Student student)
         {
@@ -105,6 +145,13 @@ namespace SchoolManagementTask.Controllers
         }
 
         public IActionResult DeleteStudent(Student student)
+        {
+            ORM.Student.Remove(student);
+            ORM.SaveChanges();
+            return RedirectToAction(nameof(StudentController.AllStudents));
+        }
+
+        public IActionResult DeleteStudent1(Student student)
         {
             ORM.Student.Remove(student);
             ORM.SaveChanges();

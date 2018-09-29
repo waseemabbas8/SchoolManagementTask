@@ -1,67 +1,102 @@
 ﻿@model SchoolManagementTask.Models.Student
+@using SchoolManagementTask.Controllers;
+    @{
+        ViewData["Title"] = "StudentDetail";
 
-@{
-    ViewData["Title"] = "StudentDetail";
-}
+    }
 
-<h2>StudentDetail</h2>
+    <h2>StudentDetail</h2>
 
-<div>
-    <h4>@Model.Name</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RollNo)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RollNo)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Dob)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Dob)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Cnic)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cnic)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Mobile)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Mobile)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="AllStudents" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span> All Students</a> |
-    <a asp-action="EditStudent" asp-route-id="@Model.Id" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit Student</a>
-    <a asp-action="DeleteStudent" asp-route-id="@Model.Id" class="btn btn-danger"><span class="glyphicon glyphicon-floppy-remove"></span> Delete Student</a>
-</div>
+    <div>
+        <div class="col-md-6">
+
+            <div>
+                <h4>@Model.Name</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RollNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RollNo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Class)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Class)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Dob)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Dob)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Cnic)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Cnic)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mobile)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mobile)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                </dl>
+            </div>
+            <div>
+                <a asp-action="AllStudents" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span> All Students</a> |
+                <a asp-action="EditStudent" asp-route-id="@Model.Id" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> Edit Student</a>
+                <a asp-action="DeleteStudent" asp-route-id="@Model.Id" class="btn btn-danger"><span class="glyphicon glyphicon-floppy-remove"></span> Delete Student</a>
+            </div>
+        </div>
+
+
+        <div class="col-md-6" id="StudentsNamesDiv">
+
+        </div>
+    </div>
+
+
+
+
+    <div id="AdDiv">
+
+    </div>
+
+
+    @section Scripts
+        {
+
+        <script>
+        $(function () {
+
+            $('#AdDiv').load("/Student/ShowAd");
+            $('#StudentsNamesDiv').load(@nameof(StudentController.GetStudentsNames));
+
+        });
+
+
+        </script>
+
+    }
