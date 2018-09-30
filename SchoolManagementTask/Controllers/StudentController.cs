@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +42,17 @@ namespace SchoolManagementTask.Controllers
             {
                 ORM.Add(student);
                 ORM.SaveChanges();
+
+                string APIURL = "http://bulksms.com.pk/api/sms.php?username=923338311685&password=2915&sender=BrandName&mobile="+student.Mobile+"&message=Welcome to our website.";
+                
+                using (var APIClient = new HttpClient())
+                {
+                    Task<HttpResponseMessage> RM = APIClient.GetAsync(APIURL);
+                    Task<string> FinalRespone = RM.Result.Content.ReadAsStringAsync();
+                }
+                
+
+
                 ViewBag.Message = "Registration Done Succefully!";
                 ModelState.Clear();
 
@@ -92,10 +104,7 @@ namespace SchoolManagementTask.Controllers
         {
             string Result = "";
 
-
             var r = Request;
-
-
 
             IList<Student> All =  ORM.Student.ToList<Student>();
             Result += "<h1 class='alert alert-success'>Total Students: "+All.Count+"</h1>";
@@ -105,24 +114,13 @@ namespace SchoolManagementTask.Controllers
                 Result += "<a href='/Student/StudentDetail?Id="+S.Id+"'><p><span class='glyphicon glyphicon-user'></span> " + S.Name+"</p></a> <a href='/student/deletestudent1?id="+S.Id+"'>Delete</a>";
             }
 
-
-
-
             return Result;
         }
-
-
-
-
-
 
         public string ShowAd()
         {
             string Ad = "";
-
             Ad = "<img class='img img-responsive' src='http://lorempixel.com/400/400/sports/Theta-Solutions/'/>";
-
-
             return Ad;
         }
 
